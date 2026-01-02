@@ -53,14 +53,32 @@ The pipeline handles:
 ## Project Structure
 
 ```
-glyph-training/
-├── model.py                 # Siamese network architecture (ResNet18 backbone)
-├── dataset.py               # Dataset with aggressive augmentation
-├── colab_train.py          # Training script optimized for Google Colab
-├── scan_detection_only.py  # Glyph detection pipeline
-├── interactive_labeler.py  # Interactive labeling tool with ductus tracking
-├── extract_stone_images_from_db.py  # Database extraction utilities
-└── detection_results/      # Output from detection pipeline
+DeepSafaitic/
+├── src/
+│   └── deepsafaitic/
+│       ├── __init__.py
+│       ├── model.py          # Siamese network architecture (ResNet18 backbone)
+│       └── dataset.py         # Dataset with aggressive augmentation
+├── scripts/
+│   ├── colab_train.py        # Training script optimized for Google Colab
+│   ├── scan_detection_only.py # Glyph detection pipeline
+│   ├── interactive_labeler.py # Interactive labeling tool with ductus tracking
+│   └── extract_stone_images_from_db.py  # Database extraction utilities
+├── notebooks/
+│   └── safaitic_training.ipynb  # Jupyter notebook for training
+├── tests/
+│   ├── test_visualization.py
+│   └── visualize_dataset.py
+├── data/
+│   ├── cleaned_glyphs/       # Training glyph images (28 characters)
+│   └── safaitic_assets/      # Source SVG assets
+├── outputs/
+│   ├── detection_results/    # Detection pipeline outputs
+│   └── labeled_results/      # Labeled data exports
+├── docs/                     # Documentation
+├── requirements.txt
+├── setup.py
+└── README.md
 ```
 
 ## Key Components
@@ -101,21 +119,28 @@ The training system includes:
 
 ## Usage
 
+### Installation
+```bash
+pip install -r requirements.txt
+# Or install as package:
+pip install -e .
+```
+
 ### Training (Google Colab)
 ```python
-# Upload colab_train.py, model.py, dataset.py to Colab
+# Upload scripts/colab_train.py and src/deepsafaitic/ to Colab
 # Mount Google Drive
 # Run training cell
 ```
 
 ### Detection
 ```bash
-python scan_detection_only.py stone_images/stone_16820.jpg
+python scripts/scan_detection_only.py data/stone_images/stone_16820.jpg
 ```
 
 ### Interactive Labeling
 ```bash
-python interactive_labeler.py stone_images/stone_16820.jpg
+python scripts/interactive_labeler.py data/stone_images/stone_16820.jpg
 ```
 
 ## Technical Highlights

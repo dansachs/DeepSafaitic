@@ -46,15 +46,15 @@ models/*.pth
 !models/.gitkeep
 
 # Data directories (large files)
-stone_images/*.jpg
-stone_images/*.png
-stone_images/*.JPG
-stone_images/*.PNG
-!stone_images/.gitkeep
+data/stone_images/*.jpg
+data/stone_images/*.png
+data/stone_images/*.JPG
+data/stone_images/*.PNG
+!data/stone_images/.gitkeep
 
 # Detection results (generated files)
-detection_results/
-labeled_results/
+outputs/detection_results/
+outputs/labeled_results/
 test_results/
 
 # Database files
@@ -79,6 +79,8 @@ logs/
 drive/
 
 # Keep directory structure
-!stone_images/.gitkeep
-!models/.gitkeep
+!data/stone_images/.gitkeep
+!outputs/models/.gitkeep
+!data/cleaned_glyphs/.gitkeep
+!data/safaitic_assets/.gitkeep
 
