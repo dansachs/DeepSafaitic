@@ -1016,7 +1016,6 @@ class InteractiveLabeler:
         # Choose output directory
         output_dir = Path("outputs") / "labeled_results"
         output_dir.mkdir(parents=True, exist_ok=True)
-        output_dir.mkdir(exist_ok=True)
         
         image_name = Path(self.image_path).stem
         
@@ -1113,8 +1112,8 @@ def extract_id_from_filename(filename: str) -> Optional[str]:
     return match.group(1) if match else None
 
 
-def load_detection_results(results_path: str) -> List[Tuple[int, int, int, int]]:
-    """Load detected boxes from detection_results.txt file."""
+def load_outputs/detection_results(results_path: str) -> List[Tuple[int, int, int, int]]:
+    """Load detected boxes from outputs/detection_results.txt file."""
     boxes = []
     try:
         with open(results_path, 'r', encoding='utf-8') as f:
@@ -1148,7 +1147,7 @@ def main():
     
     parser = argparse.ArgumentParser(description="Interactive Safaitic Labeler")
     parser.add_argument("image", help="Path to stone image")
-    parser.add_argument("--results", help="Path to detection_results.txt file")
+    parser.add_argument("--results", help="Path to outputs/detection_results.txt file")
     parser.add_argument("--boxes", nargs='+', type=int, metavar='INT',
                        help="Manual box coordinates: x y width height (can repeat for multiple boxes)")
     parser.add_argument("--db", default=None,
@@ -1159,7 +1158,7 @@ def main():
     # Load boxes
     boxes = []
     if args.results:
-        boxes = load_detection_results(args.results)
+        boxes = load_outputs/detection_results(args.results)
     elif args.boxes:
         # Parse manual boxes
         if len(args.boxes) % 4 != 0:
@@ -1173,15 +1172,15 @@ def main():
         image_name = image_path.stem
         
         # Check in current directory first
-        detection_dirs = sorted(Path("detection_results").glob(f"{image_name}_*"), reverse=True)
+        detection_dirs = sorted(Path("outputs/detection_results").glob(f"{image_name}_*"), reverse=True)
         if not detection_dirs:
             # Check in image directory
-            detection_dirs = sorted(image_path.parent.glob(f"detection_results/{image_name}_*"), reverse=True)
+            detection_dirs = sorted(image_path.parent.glob(f"outputs/detection_results/{image_name}_*"), reverse=True)
         
         if detection_dirs:
-            results_file = detection_dirs[0] / "detection_results.txt"
+            results_file = detection_dirs[0] / "outputs/detection_results.txt"
             if results_file.exists():
-                boxes = load_detection_results(str(results_file))
+                boxes = load_outputs/detection_results(str(results_file))
                 print(f"Loaded boxes from: {results_file}")
     
     if not boxes:

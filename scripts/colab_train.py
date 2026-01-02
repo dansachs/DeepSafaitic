@@ -317,6 +317,7 @@ def main():
     
     # Import model utilities for timestamped names
     try:
+        sys.path.insert(0, str(project_root / "scripts"))
         from model_utils import get_timestamped_model_name
         USE_TIMESTAMPS = True
     except ImportError:

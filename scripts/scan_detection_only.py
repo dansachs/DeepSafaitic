@@ -307,7 +307,7 @@ def extract_id_from_filename(filename: str) -> Optional[str]:
 def export_detection_results(
     detected_boxes: List[Tuple[int, int, int, int]],
     image_path: str,
-    db_path: str = "/Users/dansachs/Desktop/Safaitic Inscription Reader/data/safaitic.db",
+    db_path: str = "None",
     output_path: str = "detection_results.txt"
 ) -> None:
     """
@@ -387,7 +387,7 @@ def detect_glyphs(
     if output_dir is None:
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         image_name = Path(image_path).stem
-        output_dir = f"detection_results/{image_name}_{timestamp}"
+        output_dir = f"outputs/detection_results/{image_name}_{timestamp}"
     
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
