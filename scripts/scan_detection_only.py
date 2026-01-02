@@ -307,7 +307,7 @@ def extract_id_from_filename(filename: str) -> Optional[str]:
 def export_detection_results(
     detected_boxes: List[Tuple[int, int, int, int]],
     image_path: str,
-    db_path: str = "None",
+    db_path: str = None,
     output_path: str = "detection_results.txt"
 ) -> None:
     """
