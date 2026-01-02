@@ -1,0 +1,84 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb
+
+# Model checkpoints (keep structure, ignore large files)
+*.pth
+*.pt
+*.h5
+*.ckpt
+models/*.pth
+!models/.gitkeep
+
+# Data directories (large files)
+stone_images/*.jpg
+stone_images/*.png
+stone_images/*.JPG
+stone_images/*.PNG
+!stone_images/.gitkeep
+
+# Detection results (generated files)
+detection_results/
+labeled_results/
+test_results/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Colab
+drive/
+
+# Keep directory structure
+!stone_images/.gitkeep
+!models/.gitkeep
+
