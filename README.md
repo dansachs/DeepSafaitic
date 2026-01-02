@@ -1,5 +1,9 @@
 # DeepSafaitic: Neural Epigraphy for Ancient Desert Inscriptions
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-1.9+-orange.svg)](https://pytorch.org/)
+
 A proof-of-concept machine learning pipeline for automatically reading and interpreting Safaitic rock inscriptions using deep learning and computer vision techniques.
 
 ## Overview
@@ -50,54 +54,96 @@ The pipeline handles:
 - Small glyph detection (e.g., "ayn" dots)
 - Integration with SQLite databases for ground truth
 
+## Installation
+
+### Prerequisites
+- Python 3.8 or higher
+- CUDA-capable GPU (recommended for training)
+
+### Quick Install
+
+```bash
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/DeepSafaitic.git
+cd DeepSafaitic
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Install as a package (optional)
+pip install -e .
+```
+
 ## Project Structure
 
 ```
 DeepSafaitic/
 ├── src/
-│   └── deepsafaitic/
+│   └── deepsafaitic/          # Core package
 │       ├── __init__.py
-│       ├── model.py          # Siamese network architecture (ResNet18 backbone)
-│       └── dataset.py         # Dataset with aggressive augmentation
+│       ├── model.py          # Siamese network architecture
+│       └── dataset.py         # Dataset with augmentation
 ├── scripts/
-│   ├── colab_train.py        # Training script optimized for Google Colab
+│   ├── colab_train.py        # Training script (Google Colab)
 │   ├── scan_detection_only.py # Glyph detection pipeline
-│   ├── interactive_labeler.py # Interactive labeling tool with ductus tracking
-│   └── extract_stone_images_from_db.py  # Database extraction utilities
+│   ├── interactive_labeler.py # Interactive labeling tool
+│   ├── utils/                 # Utility scripts
+│   └── legacy/                # Deprecated scripts
 ├── notebooks/
-│   └── safaitic_training.ipynb  # Jupyter notebook for training
-├── tests/
-│   ├── test_visualization.py
-│   └── visualize_dataset.py
-├── data/
-│   ├── cleaned_glyphs/       # Training glyph images (28 characters)
-│   └── safaitic_assets/      # Source SVG assets
-├── outputs/
-│   ├── detection_results/    # Detection pipeline outputs
+│   └── safaitic_training.ipynb  # Jupyter training notebook
+├── tests/                     # Test files
+├── data/                      # Data directories (gitignored)
+│   ├── cleaned_glyphs/       # Training glyph images
+│   └── stone_images/         # Stone photographs
+├── outputs/                   # Output directories (gitignored)
+│   ├── detection_results/    # Detection outputs
 │   └── labeled_results/      # Labeled data exports
-├── docs/                     # Documentation
+├── docs/                      # Documentation
+│   └── images/               # Documentation images
 ├── requirements.txt
 ├── setup.py
 └── README.md
 ```
 
+## Quick Start
+
+### Training (Google Colab)
+
+1. Upload `scripts/colab_train.py` and `src/deepsafaitic/` to Google Colab
+2. Mount Google Drive
+3. Run the training cell
+
+See `docs/` for detailed training guides.
+
+### Detection
+
+```bash
+python scripts/scan_detection_only.py data/stone_images/stone_16820.jpg
+```
+
+### Interactive Labeling
+
+```bash
+python scripts/interactive_labeler.py data/stone_images/stone_16820.jpg
+```
+
 ## Key Components
 
-### Siamese Network (`model.py`)
+### Siamese Network (`src/deepsafaitic/model.py`)
 - Pre-trained ResNet18 backbone
 - 512-dimensional embedding space
 - L2-normalized embeddings
 - Contrastive loss (margin=2.0)
 - Euclidean distance for similarity
 
-### Detection Pipeline (`scan_detection_only.py`)
+### Detection Pipeline (`scripts/scan_detection_only.py`)
 - Adaptive thresholding for binary mask creation
 - Contour detection with aspect ratio filtering
 - Ruler detection and removal
 - Configurable minimum area thresholds
 - Outputs timestamped results with ground truth from database
 
-### Interactive Labeler (`interactive_labeler.py`)
+### Interactive Labeler (`scripts/interactive_labeler.py`)
 - Click-and-drag box creation
 - Automatic numbering and path prediction
 - Manual reordering with ↑↓ keys
@@ -106,9 +152,8 @@ DeepSafaitic/
 - Zoom, pan, and rotation controls
 - Export to CSV/JSON with angles and path IDs
 
-## Training Pipeline
+## Training Pipeline Features
 
-The training system includes:
 - **Checkpoint resuming**: Resume from saved checkpoints
 - **Periodic checkpointing**: Save every 10 epochs
 - **Early stopping**: Prevent overfitting
@@ -117,41 +162,6 @@ The training system includes:
 - **Timestamped models**: Track model versions
 - **Reduced validation frequency**: Speed up training
 
-## Usage
-
-### Installation
-```bash
-pip install -r requirements.txt
-# Or install as package:
-pip install -e .
-```
-
-### Training (Google Colab)
-```python
-# Upload scripts/colab_train.py and src/deepsafaitic/ to Colab
-# Mount Google Drive
-# Run training cell
-```
-
-### Detection
-```bash
-python scripts/scan_detection_only.py data/stone_images/stone_16820.jpg
-```
-
-### Interactive Labeling
-```bash
-python scripts/interactive_labeler.py data/stone_images/stone_16820.jpg
-```
-
-## Technical Highlights
-
-- **PyTorch** for deep learning
-- **Albumentations** for image augmentation
-- **OpenCV** for computer vision
-- **SQLite** for database integration
-- **Tkinter** for interactive GUI
-- **scipy** for spline interpolation
-
 ## Dataset
 
 The training dataset consists of:
@@ -159,6 +169,18 @@ The training dataset consists of:
 - Each character has an "ideal" and "square" variant
 - Ground truth transliterations from archaeological database
 - Full stone images with known transcriptions
+
+## Documentation
+
+See the `docs/` directory for detailed guides:
+- Setup instructions
+- Training guides
+- Usage examples
+- Testing procedures
+
+## Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## Future Work
 
@@ -172,17 +194,25 @@ The training dataset consists of:
 
 If you use this code in your research, please cite:
 
-```
-DeepSafaitic: Neural Epigraphy for Ancient Desert Inscriptions
-Proof of Concept - Training Pipeline for Safaitic Rock Inscription Reading
+```bibtex
+@software{deepsafaitic2024,
+  title={DeepSafaitic: Neural Epigraphy for Ancient Desert Inscriptions},
+  author={DeepSafaitic Contributors},
+  year={2024},
+  url={https://github.com/YOUR_USERNAME/DeepSafaitic}
+}
 ```
 
 ## License
 
-[Specify your license here]
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
 - Safaitic inscription data from OCIANA (Online Corpus of the Inscriptions of Ancient North Arabia)
 - Archaeological database integration for ground truth
+- Built with [PyTorch](https://pytorch.org/), [Albumentations](https://albumentations.ai/), and [OpenCV](https://opencv.org/)
 
+## Contact
+
+For questions or issues, please open an issue on GitHub.
