@@ -29,8 +29,13 @@ except ImportError:
     def clear_output(*args, **kwargs):
         pass
 
-from model import SafaiticSiameseNet, ContrastiveLoss, euclidean_distance
-from dataset import SafaiticSiameseDataset
+# Add src to path for imports
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root / "src"))
+
+from deepsafaitic import model
+from deepsafaitic.model import SafaiticSiameseNet, ContrastiveLoss, euclidean_distance
+from deepsafaitic.dataset import SafaiticSiameseDataset
 
 
 def mount_google_drive():
@@ -351,7 +356,7 @@ def main():
     
     # Create datasets
     print("Loading datasets...")
-    full_dataset = SafaiticSiameseDataset(root_dir="cleaned_glyphs", augment=True)
+    full_dataset = SafaiticSiameseDataset(root_dir=str(project_root / "data" / "cleaned_glyphs"), augment=True)
     
     # Split into train/val (80/20)
     train_size = int(0.8 * len(full_dataset))
@@ -361,7 +366,7 @@ def main():
     )
     
     # Create val dataset without augmentation (for proper validation)
-    val_dataset_full = SafaiticSiameseDataset(root_dir="cleaned_glyphs", augment=False)
+    val_dataset_full = SafaiticSiameseDataset(root_dir=str(project_root / "data" / "cleaned_glyphs"), augment=False)
     # Use same indices as validation split
     val_indices = val_dataset_wrapped.indices
     val_dataset = torch.utils.data.Subset(val_dataset_full, val_indices)

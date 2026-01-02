@@ -5,7 +5,7 @@ List all available model checkpoints with timestamps.
 
 import sys
 from pathlib import Path
-from model_utils import list_models, find_latest_model
+from scripts.model_utils import list_models, find_latest_model
 
 def main():
     """List models in checkpoint directory."""

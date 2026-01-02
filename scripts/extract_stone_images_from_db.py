@@ -242,8 +242,8 @@ def main():
                        help="Image column name (default: image_url)")
     parser.add_argument("--id-column", default="id",
                        help="ID column name (default: id)")
-    parser.add_argument("--output", default="stone_images",
-                       help="Output directory (default: stone_images)")
+    parser.add_argument("--output", default="data/stone_images",
+                       help="Output directory (default: data/stone_images)")
     parser.add_argument("--local-base", 
                        help="Base directory for relative image paths")
     parser.add_argument("--download-urls", action="store_true",
