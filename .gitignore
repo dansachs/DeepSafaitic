@@ -33,6 +33,12 @@ ENV/
 *.swo
 *~
 
+# Excel temporary files
+~$*.xlsx
+~$*.xls
+*.xlsx
+*.xls
+
 # Jupyter Notebooks
 .ipynb_checkpoints/
 *.ipynb
