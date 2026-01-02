@@ -170,25 +170,17 @@ The training dataset consists of:
 - Ground truth transliterations from archaeological database
 - Full stone images with known transcriptions
 
-## Documentation
-
-See the `docs/` directory for detailed guides:
-- Setup instructions
-- Training guides
-- Usage examples
-- Testing procedures
 
 ## Contributing
 
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ## Future Work
 
-- [ ] Fine-tune model on real stone glyphs (extracted from labeled data)
-- [ ] Implement text direction prediction
-- [ ] Add character recognition confidence scores
-- [ ] Develop end-to-end transcription pipeline
-- [ ] Expand to other ancient scripts
+- Fine-tune model on real stone glyphs
+- Implement text direction prediction
+- Add character recognition confidence scores
+- Develop end-to-end transcription pipeline
 
 ## Citation
 
